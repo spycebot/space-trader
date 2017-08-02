@@ -2,16 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { NgSwitch } from '@angular/common';
 
 import { Captain } from './captain';
-
-class Game {
-	id: number;
-	player: Captain;
-
-	constructor() {
-		this.id = 0;
-		this.player = new Captain();
-	}
-}
+import { Ship } from './ship';
+import { Game } from './game';
+import { Port } from './port';
 
 //const locations: string[] = ["homePort", "port", "space", "pirates"];
 
@@ -24,7 +17,7 @@ export class AppComponent {
   title = 'Space Trader';
   game: Game;
   captain: Captain;
-  currentViews: Array<any> = [];
+  port: Port;
 
   ngOnInit() {
   	/*
@@ -39,9 +32,12 @@ export class AppComponent {
   	if (lastGame) { this.game = lastGame; }
   	else { this.game = new Game(); } 
   	this.captain = this.game.player;
-  	this.currentViews.push('<start></start>');
-  	console.log('currentViews.length: ' + this.currentViews.length);
-
+  	if (!this.port) { this.port = new Port(); }
+  	/* Fall back
+  	this.game = new Game();
+  	this.captain = this.game.player;
+  	this.port = new Port();
+  	*/
   }
 
   setLocalStorage(o: any) {
@@ -51,6 +47,12 @@ export class AppComponent {
   startGame(c: Captain) {
   	this.captain = c;
   	console.log("AppComponent:startGame:game.player.name: " + this.game.player.name);
+  	this.captain.location = 'port';
+  	this.captain.debt = this.captain.credits;
   	this.setLocalStorage(this.game);
+  }
+
+  restart() {
+  	this.captain = new Captain();
   }
 }

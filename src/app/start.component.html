@@ -4,5 +4,6 @@
       <table>
         <tr><td>Name</td><td><input type="text" [(ngModel)]="captain.name"></td></tr>
         <tr><td>Credits</td><td><input [(ngModel)]="captain.credits"></td>
+        <tr><td>Ship</td><td><input [(ngModel)]="captain.ship.name"></td>
       </table>
       <input type="button" value="Start" (click)="emitStart()">

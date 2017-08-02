@@ -2,11 +2,23 @@
   <h1>{{title}}</h1>
   <div [ngSwitch]="captain?.location">
     <start *ngSwitchCase="'start'" [captain]="captain" (startGame)="startGame($event)"></start>
+    <div *ngSwitchCase="'port'">
+      <h2>Space Port {{port.name}}</h2>
+      <p>{{port.description}}</p>
+      <input type="button" value="Trade">
+      <input type="button" value="Depart">
+      <input type="button" value="Repair" disabled>
+      <input type="button" value="Restart" (click)="restart()">
+    </div>
     <div *ngSwitchDefault>No captian location???</div>
+    <h2>Captain {{captain.name}}</h2>
+    <table>
+      <tr><td>Location:</td><td>{{captain.location}}</td></tr>
+      <tr><td>Credits:</td><td>{{captain.credits}}</td></tr>
+      <tr><td>Debt:</td><td>{{captain.debt}}</td></tr>
+      <tr><td>Ship:</td><td>{{captain.ship.name}}</td></tr>
+    </table>
   </div>   
-
-  Captain Name: {{captain.name}}
-  Captain Location: {{captain.location}}
 
 
   <!-- 
