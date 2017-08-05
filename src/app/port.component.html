@@ -1,0 +1,31 @@
+    <div>
+      <h2>Space Port {{port.name}}</h2>
+      <div [ngSwitch]="view">
+        <div *ngSwitchCase="'welcome'">
+          <p>{{port.description}}</p>
+          <img src='assets/planet-earth.svg'>
+
+        </div>
+        <div *ngSwitchCase="'trade'">
+          <h3>Local Prices</h3>
+          <table>
+            <tr *ngFor="let com of commodities">
+              <td>{{com.name}}</td><td>{{com.basePrice}}</td>
+            </tr>
+          </table>
+
+        </div>
+        <div *ngSwitchCase="'depart'">
+          <h3>Departing</h3>
+          <p>Disengaging support couplings... Engaging thrusters...</p>
+          <img src='assets/rocket-ship.svg'>
+          <input type="button" value="Engage Hyperdrive" (click)="emitTravel()">
+        </div>
+      </div>
+      <div *ngIf="view != 'depart'">
+        <input type="button" value="Trade" (click)="view='trade'">
+        <input type="button" value="Depart" (click)="view='depart'">
+        <input type="button" value="Repair" disabled>
+        <!-- input type="button" value="Restart" (click)="emitRestart()" -->
+      </div>
+    </div>

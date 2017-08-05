@@ -1,15 +1,31 @@
+<canvas id="canvas"></canvas>
 <div id="appComponent">
   <h1>{{title}}</h1>
   <div [ngSwitch]="captain?.location">
     <start *ngSwitchCase="'start'" [captain]="captain" (startGame)="startGame($event)"></start>
-    <div *ngSwitchCase="'port'">
-      <h2>Space Port {{port.name}}</h2>
-      <p>{{port.description}}</p>
-      <input type="button" value="Trade">
-      <input type="button" value="Depart">
-      <input type="button" value="Repair" disabled>
-      <input type="button" value="Restart" (click)="restart()">
+    <port *ngSwitchCase="'port'" 
+      [port]="port" 
+      (restart)="restart($event)"
+      (travelSpace)="travelSpace($event)"
+      ></port> <!-- HERE? -->
+    <div *ngSwitchCase="'space'">
+      <h2>Going...very...fast...</h2>
+      <p>"Ground control to Major Tom!"</p>
+      <img src='assets/astronaut.svg'>
+      <input type="button" value="Leave Hyperspace" (click)="arrivePort()">
     </div>
+
+    <div *ngSwitchCase="'credits'">
+      <h3>Graphics</h3>
+      <ul>
+        <li>Madebyoliver https://smashicons.com/</li>
+      </ul>
+      <h3>Sounds</h3>
+      <ul>
+        <li>Sid Meier's Alpha Centauri</li>
+      </ul>
+    </div>
+
     <div *ngSwitchDefault>No captian location???</div>
     <h2>Captain {{captain.name}}</h2>
     <table>
@@ -18,6 +34,9 @@
       <tr><td>Debt:</td><td>{{captain.debt}}</td></tr>
       <tr><td>Ship:</td><td>{{captain.ship.name}}</td></tr>
     </table>
+    <input class="admin" type="button" value="Credits" (click)="captain.location='credits'">
+    <input class="admin" type="button" value="Restart" (click)="restart()">
+    <input class="admin" type="button" value="Clear" (click)="clearStorage()">
   </div>   
 
 

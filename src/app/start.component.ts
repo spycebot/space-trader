@@ -6,7 +6,10 @@ import { Ship } from './ship';
 @Component({
 	selector: 'start',
 	templateUrl: './start.component.html',
-	styles: [`p { margin: 4px; }`]
+	styles: [`
+		p { margin: 4px; }
+		p img { width: 50%; float: left; }
+	`]
 })
 
 export class StartComponent {
@@ -22,5 +25,7 @@ export class StartComponent {
 
 	ngOnInit() {
 		if (!this.captain.ship) this.captain.ship = new Ship();
+		let audio = new Audio('http://shannonware.com/SpaceTraderSounds/peace%20drone%20c4.ogg');
+		audio.play();
 	}
 }

@@ -6,7 +6,7 @@ export class Captain {
 	credits: number;
 	debt: number;
 	location: string;
-	ship: Ship;
+	ship?: Ship;
 
 	constructor() {
 		this.id = 0;
