@@ -17,6 +17,8 @@ export class StartComponent {
 	@Output() startGame = new EventEmitter<Captain>();
 	//captain: Captain = new Captain();
 
+	
+
 	emitStart() {
 		this.captain.location = 'start';
 		console.log("StartComponent:emitStart:captain.name: " + this.captain.name);

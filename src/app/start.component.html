@@ -1,9 +1,9 @@
       <h2>Welcome!</h2>
-      <p><img src="/assets/astronaut.svg">You have started trading in your home space port, orbiting around the planet PLANET. You can trade in any space port, but in your home space port, you have access to credit and a small warehouse. I am going to go out on a limb and say that 80% of the time is is about asking the question in the right way.</p>
+      <p><img src="./assets/astronaut.svg">You have started trading in your home space port, orbiting around the planet PLANET. You can trade in any space port, but in your home space port, you have access to credit and a small warehouse. I am going to go out on a limb and say that 80% of the time is is about asking the question in the right way.</p>
       <h2>Start</h2>
       <table>
-        <tr><td>Name</td><td><input type="text" [(ngModel)]="captain.name"></td></tr>
-        <tr><td>Credits</td><td><input [(ngModel)]="captain.credits"></td>
-        <tr><td>Ship</td><td><input [(ngModel)]="captain.ship.name"></td>
+        <tr><td>Name</td><td><input type="text" class="wide" [(ngModel)]="captain.name"></td></tr>
+        <tr><td>Credits</td><td><input class="wide" [(ngModel)]="captain.credits"></td>
+        <tr><td>Ship</td><td><input class="wide" [(ngModel)]="captain.ship.name"></td>
       </table>
-      <input type="button" value="Start Game" (click)="emitStart()">
+      <input type="button" value="Start Game" class="wide" (click)="emitStart()">

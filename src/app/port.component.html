@@ -3,7 +3,7 @@
       <div [ngSwitch]="view">
         <div *ngSwitchCase="'welcome'">
           <p>{{port.description}}</p>
-          <img src='assets/planet-earth.svg'>
+          <img id="spaceStation" src='assets/space-station.svg'>
 
         </div>
         <div *ngSwitchCase="'trade'">
@@ -15,16 +15,23 @@
           </table>
 
         </div>
+        <div *ngSwitchCase="'leave'">
+          <h3>Select A Destination</h3>
+          <ul>
+            <li *ngFor="let port of ports" (click)="setDestination(port)">{{port.name}}</li>
+          </ul>
+          <input type="button" value="Depart" class="wide" (click)="view='depart'">
+        </div>
         <div *ngSwitchCase="'depart'">
-          <h3>Departing</h3>
+          <h3>Departing for {{captain.destination.name}}</h3>
           <p>Disengaging support couplings... Engaging thrusters...</p>
           <img src='assets/rocket-ship.svg'>
-          <input type="button" value="Engage Hyperdrive" (click)="emitTravel()">
+          <input type="button" value="Engage Hyperdrive" class="wide" (click)="emitTravel()">
         </div>
       </div>
-      <div *ngIf="view != 'depart'">
+      <div *ngIf="view != 'departing'">
         <input type="button" value="Trade" (click)="view='trade'">
-        <input type="button" value="Depart" (click)="view='depart'">
+        <input type="button" value="Leave" (click)="view='leave'">
         <input type="button" value="Repair" disabled>
         <!-- input type="button" value="Restart" (click)="emitRestart()" -->
       </div>

@@ -1,76 +1,120 @@
 <canvas id="canvas"></canvas>
 <div id="appComponent">
   <h1>{{title}}</h1>
-  <div [ngSwitch]="captain?.location">
-    <start *ngSwitchCase="'start'" [captain]="captain" (startGame)="startGame($event)"></start>
-    <port *ngSwitchCase="'port'" 
-      [port]="port" 
-      (restart)="restart($event)"
-      (travelSpace)="travelSpace($event)"
-      ></port> <!-- HERE? -->
-    <div *ngSwitchCase="'space'">
-      <h2>Going...very...fast...</h2>
-      <p>"Ground control to Major Tom!"</p>
-      <img src='assets/astronaut.svg'>
-      <input type="button" value="Leave Hyperspace" (click)="arrivePort()">
-    </div>
+  <div [ngSwitch]="view">
+    <div *ngSwitchCase="'game'">
+      <div [ngSwitch]="captain?.location">
+        <start *ngSwitchCase="'start'" [captain]="captain" (startGame)="startGame($event)"></start>
+        <port *ngSwitchCase="'port'" 
+          [port]="port" 
+          [captain]="captain"
+          (restart)="restart($event)"
+          (travelSpace)="travelSpace($event)"
+          ></port> <!-- HERE? -->
+        <div *ngSwitchCase="'space'">
+          <h2>Going...very...fast...</h2>
+          <p>"Ground control to Major Tom!"</p>
+          <img src='assets/astronaut.svg'>
+          <input type="button" value="Leave Hyperspace" (click)="arrivePort(captain.destination)">
+        </div>
+        <div *ngSwitchCase="'blank'">
+          <h2></h2>
+          <p></p>
+          <img src='assets/pirate.svg'>
+          <input type="button" value="do" class="wide">
+        </div>
+        <div *ngSwitchCase="'credits'">
 
+        </div>
+
+        <div *ngSwitchCase="'blank'">
+          <h2></h2>
+          <p></p>
+          <img src='assets/pirate.svg'>
+          <input type="button" value="do" class="wide">
+        </div>
+
+        <div *ngSwitchDefault>No captian location???</div>
+        <h2>Captain {{captain.name}}</h2>
+        <table>
+          <tr><td>Location:</td><td>{{captain.location}}</td></tr>
+          <tr><td>Credits:</td><td>{{captain.credits}}</td></tr>
+          <tr><td>Debt:</td><td>{{captain.debt}}</td></tr>
+          <tr *ngIf="captain.destination"><td>Destination:</td><td>{{captain.destination.name}}</td></tr>
+          <tr><td>Ship:</td><td>{{captain.ship.name}}</td></tr>
+        </table>
+        <input class="admin" type="button" value="Credits" (click)="setView(1)">
+        <input class="admin" type="button" value="Restart" (click)="restart()">
+        <input class="admin" type="button" value="Clear" (click)="clearStorage()">
+        [{{view}}]
+      </div>   
+
+
+      <!-- 
+      <start [captain]="captain" (startGame)="startGame($event)"></start>
+
+        TIS IS A TEST. currentViews.length: {{currentViews.length}}
+        <div *ngFor="let view of currentViews">
+          View: {{view}}
+        </div> 
+
+        div [ngSwitch]="captain.location">
+        <div *ngSwitchCase="'start'">
+          <h2>Welcome!</h2>
+          <p>You have started trading in your home space port, orbiting around the planet PLANET. You can trade in any space port, but in your home space port, you have access to credit and a small warehouse. I am going to go out on a limb and say that 80% of the time is is about asking the question in the right way.</p>
+          <h2>Start</h2>
+          <table>
+            <tr><td>Name</td><td><input type="text" [(ngModel)]="captain.name"></td></tr>
+            <tr><td>Credits</td><td><input [(ngModel)]="captain.credits"></td>
+          </table>
+          <input type="button" value="Start" (click)="setLocalStorage(game)">
+        </div> <!-- switch location is start -- >
+        <div *ngSwitchCase="homePort">
+          <h2>Home Port</h2>
+        </div>
+        <div *ngSwitchCase="'port'">
+          <h2>Space Port</h2>
+        </div>
+        <div *ngSwitchCase="'space'">
+          <h2>In Space</h2>
+        </div>
+        <div *ngSwitchCase="'pirates'">
+          <h2>Space Pirates!!!</h2>
+        </div>
+      </div> <!-- ngSwitch -->
+    </div>
     <div *ngSwitchCase="'credits'">
       <h3>Graphics</h3>
       <ul>
         <li>Madebyoliver https://smashicons.com/</li>
+        <li>Planet Texture Maps http://planetpixelemporium.com/earth.html</li>
       </ul>
       <h3>Sounds</h3>
       <ul>
         <li>Sid Meier's Alpha Centauri</li>
       </ul>
+      <input type="button" class="wide" value="Back Story">
+      <p>It is great to be the captain of your own ship.</p>
+      <p>It is also great to eat. And breathe.</p>
+      <p>For all those great things like eating and breathing, there is one perfect solution, called staying in business.</p>
+      <p>My grandad told me to buy low and sell high, and things haven't changed much since then. Oh sure, the credit markest are, <em>crazy</em>, but you gotta do what you gotta do.</p>
+      <input type="button" class="wide" value="Back" (click)="setView(0)">
     </div>
-
-    <div *ngSwitchDefault>No captian location???</div>
-    <h2>Captain {{captain.name}}</h2>
-    <table>
-      <tr><td>Location:</td><td>{{captain.location}}</td></tr>
-      <tr><td>Credits:</td><td>{{captain.credits}}</td></tr>
-      <tr><td>Debt:</td><td>{{captain.debt}}</td></tr>
-      <tr><td>Ship:</td><td>{{captain.ship.name}}</td></tr>
-    </table>
-    <input class="admin" type="button" value="Credits" (click)="captain.location='credits'">
-    <input class="admin" type="button" value="Restart" (click)="restart()">
-    <input class="admin" type="button" value="Clear" (click)="clearStorage()">
-  </div>   
-
-
-  <!-- 
-  <start [captain]="captain" (startGame)="startGame($event)"></start>
-
-    TIS IS A TEST. currentViews.length: {{currentViews.length}}
-    <div *ngFor="let view of currentViews">
+    <div *ngSwitchCase="'win'">
+      <h2>You have won!</h2>
+      <p>Congratulations! You have earned enough money to retire in style. No more simulated vegetable protein. It's going to be nothing but genuine vegetable protein from here on out!</p>
+       <input class="wide" type="button" value="Restart" (click)="restart()">
       View: {{view}}
-    </div> 
-
-    div [ngSwitch]="captain.location">
-    <div *ngSwitchCase="'start'">
-      <h2>Welcome!</h2>
-      <p>You have started trading in your home space port, orbiting around the planet PLANET. You can trade in any space port, but in your home space port, you have access to credit and a small warehouse. I am going to go out on a limb and say that 80% of the time is is about asking the question in the right way.</p>
-      <h2>Start</h2>
-      <table>
-        <tr><td>Name</td><td><input type="text" [(ngModel)]="captain.name"></td></tr>
-        <tr><td>Credits</td><td><input [(ngModel)]="captain.credits"></td>
-      </table>
-      <input type="button" value="Start" (click)="setLocalStorage(game)">
-    </div> <!-- switch location is start -- >
-    <div *ngSwitchCase="homePort">
-      <h2>Home Port</h2>
     </div>
-    <div *ngSwitchCase="'port'">
-      <h2>Space Port</h2>
+    <div *ngSwitchCase="'lose'">
+      <h2>You have lost!</h2>
+      <p>The only thing worse than being poor is being poor in deep space :(</p>
+      <input class="wide" type="button" value="Restart" (click)="restart()">
+      View: {{view}}
     </div>
-    <div *ngSwitchCase="'space'">
-      <h2>In Space</h2>
+    <div *ngSwitchCase="default">
+      View: {{view}}
     </div>
-    <div *ngSwitchCase="'pirates'">
-      <h2>Space Pirates!!!</h2>
-    </div>
-  </div> <!-- ngSwitch -->
+  </div>
   <div id="builtBy">Built by Shannon Ware in Ireland.</div>
 </div>

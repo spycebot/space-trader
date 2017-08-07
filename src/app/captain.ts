@@ -1,4 +1,5 @@
 import { Ship } from './ship';
+import { Port } from './port';
 
 export class Captain {
 	id: number;
@@ -7,6 +8,8 @@ export class Captain {
 	debt: number;
 	location: string;
 	ship?: Ship;
+	destination?: Port;
+	victory: number;
 
 	constructor() {
 		this.id = 0;
@@ -15,5 +18,6 @@ export class Captain {
 		this.debt = 0;
 		this.location = "start";
 		this.ship = new Ship();
+		this.victory = 10000;
 	}
 }

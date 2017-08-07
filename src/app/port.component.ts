@@ -2,14 +2,19 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { COMMODITIES } from './commodities';
 
-import { Port } from './port';
+import { Port, PORTS } from './port';
 import { Captain } from './captain';
 import { Ship } from './ship';
 
 @Component({
 	selector: 'port',
 	templateUrl: 'port.component.html',
-	styles: []
+	styles: [`
+		img { width: 50%; }
+		li { text-decoration: none; border: 1px solid blue; }
+		li:hover { border-color: orange; }
+
+	`]
 })
 
 export class PortComponent {
@@ -19,6 +24,7 @@ export class PortComponent {
 	@Output() travelSpace = new EventEmitter<Captain>();
 	commodities = COMMODITIES;
 	view: string = "welcome";
+	ports = PORTS;
 
 	emitRestart() {
 		this.restart.emit(this.captain);
@@ -26,5 +32,9 @@ export class PortComponent {
 
 	emitTravel() {
 		this.travelSpace.emit(this.captain); // not really
+	}
+
+	setDestination(p) {
+		this.captain.destination = p;
 	}
 }
