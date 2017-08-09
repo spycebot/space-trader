@@ -13,7 +13,8 @@ import { Ship } from './ship';
 		img { width: 50%; }
 		li { text-decoration: none; border: 1px solid blue; }
 		li:hover { border-color: orange; }
-
+		input { width: 100%; }
+		td { text-align: center; }
 	`]
 })
 
@@ -36,5 +37,19 @@ export class PortComponent {
 
 	setDestination(p) {
 		this.captain.destination = p;
+	}
+
+	buy(i: number) {
+		console.log("PortComponent:buy:i: " + i);
+	}
+
+	startBuy(i: number) {
+		console.log("PortComponent:startBuy:i: " + i);
+
+	}
+	
+	stopBuy() {
+		console.log("PortComponent:stopBuy!");
+
 	}
 }

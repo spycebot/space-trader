@@ -46,7 +46,7 @@
         <input class="admin" type="button" value="Credits" (click)="setView(1)">
         <input class="admin" type="button" value="Restart" (click)="restart()">
         <input class="admin" type="button" value="Clear" (click)="clearStorage()">
-        [{{view}}]
+        <input class="admin" type="button" value="Ports" (click)="setView(4)">
       </div>   
 
 
@@ -110,6 +110,20 @@
       <h2>You have lost!</h2>
       <p>The only thing worse than being poor is being poor in deep space :(</p>
       <input class="wide" type="button" value="Restart" (click)="restart()">
+      View: {{view}}
+    </div>
+    <div *ngSwitchCase="'ports'">
+      <h2>Ports List</h2>
+      <p>Overview of all ports.</p>
+      <div *ngFor="let port of ports">
+        <h3>{{port.name}}</h3>
+        <p>
+          <span *ngFor="let com of port.bprices; let i = index">
+            [{{i}}]: {{com}}, {{port.sprices[i]}}
+          </span>
+        </p>
+      </div>
+      <input class="wide" type="button" value="Back" (click)="setView(0)">
       View: {{view}}
     </div>
     <div *ngSwitchCase="default">

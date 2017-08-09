@@ -2,15 +2,22 @@
       <h2>Space Port {{port.name}}</h2>
       <div [ngSwitch]="view">
         <div *ngSwitchCase="'welcome'">
-          <p>{{port.description}}</p>
+          <p>{{port.description}} 
+            <span *ngIf="port.surplus">Surplus: {{port.surplus.name}}</span>
+            <span *ngIf="port.deficits">Deficits: {{port.surplus.name}}
+              <span *ngFor="let com of port.deficits">{{com.name}} </span>
+            </span>
+          </p>
           <img id="spaceStation" src='assets/space-station.svg'>
 
         </div>
         <div *ngSwitchCase="'trade'">
-          <h3>Local Prices</h3>
+          <h3>Buy < Local Prices > Sell</h3>
           <table>
-            <tr *ngFor="let com of commodities">
-              <td>{{com.name}}</td><td>{{com.basePrice}}</td>
+            <tr *ngFor="let com of commodities; let i = index">
+              <td><input type="button" value="{{port.bprices[i]}}" (mousedown)="startBuy(i)" (mouseup)="stopBuy()"></td>
+              <td>{{com.name}}</td>
+              <td><input type="button" value="{{port.sprices[i]}}"></td>
             </tr>
           </table>
 

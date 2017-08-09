@@ -1,3 +1,13 @@
+export class Commodity {
+	name: string;
+	basePrice: number;
+
+	constructor(n: string = 'ether', bp: number = 0) {
+		this.name = n;
+		this.basePrice = bp;
+	}
+} 
+
 export const COMMODITIES = [
 	{ name: "Air", basePrice: 10 },
 	{ name: "Water", basePrice: 50 },

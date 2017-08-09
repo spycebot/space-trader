@@ -20,7 +20,7 @@ const PORTS: Port[] = [
 ];
 */
 
-const VIEW = ['game', 'credits', 'win', 'lose'];
+const VIEW = ['game', 'credits', 'win', 'lose', 'ports'];
 
 @Component({
   selector: 'app-root',
@@ -63,6 +63,8 @@ export class AppComponent {
   	this.captain = this.game.player;
   	//if (!this.port) { this.port = new Port(); }
   	if (!this.port) { this.port = this.ports[2]; }
+
+  	this.setPortPrices();
   	/* Fall back
   	this.game = new Game();
   	this.captain = this.game.player;
@@ -191,8 +193,8 @@ export class AppComponent {
 
 	this.camera.position.z = 5;
 
-	this.dirLight = new THREE.DirectionalLight( 0xffffff );
-	this.dirLight.position.set( -100, 0, -10 ).normalize();
+	this.dirLight = new THREE.DirectionalLight( 0xffffe6 );
+	this.dirLight.position.set( -1000, 0, -10 ).normalize();
 	this.ambientLight = new THREE.AmbientLight( 0x404040, 0.2 );
 	//let dlHelper = new THREE.DirectionalLightHelper (this.dirLight, 2);
 	this.scene.add( this.dirLight );
@@ -214,5 +216,50 @@ export class AppComponent {
   setView(nv) {
   	this.view = VIEW[nv];
   	console.log("AppComponent:setView:this.view: " + this.view);
+  }
+
+  setPortPrices() {
+  	// RATHER something like port.set()... requires prototyping..
+  	//console.log("AppComponent:setPortPrices...");
+  	for (let cport of this.ports) {
+  		cport.bprices = [];
+  		cport.sprices = [];
+  		//console.log("AppComponent:setPortPrices:cport.name: " + cport.name);
+  		for (let com of this.commodities) {
+
+  			let idelta = (+com.basePrice * .8) * Math.random();
+  			let fdelta = +com.basePrice * .4;
+  			let rdelta = idelta - fdelta;
+  			let startPrice = Math.ceil(+com.basePrice - rdelta);
+
+  			// Check surplus
+/*
+  			if (com.name == cport.surplus.name) {
+  				console.log("AppComponent:setPortPrices:com.name == cport.surplus.name");
+  			}
+  			*/
+  			if (com.name == "Air") {
+  				console.log("AppComponent:setPortPrices:com.name == Air, cport.surplus: " + cport.surplus);
+  			}
+
+  			// Check deficits
+
+  			for (let c of cport.deficits) {
+  				
+  			}
+
+  			cport.bprices.push(startPrice);
+  			let sidelta = (startPrice * .2) * Math.random()
+  			let sfdelta = startPrice * .1;
+  			let srdelta = sfdelta + sidelta;
+  			cport.sprices.push(Math.floor(startPrice - srdelta));
+  			//console.log("AppComponent:setPortPrices:com.name " + com.name + ", " + com.basePrice + ", type: " + com.basePrice.constructor.name);
+  		}
+  		//let cprice = cport.basePrice;
+  	}
+  }
+
+  updatePortPrices() {
+  	// RATHER something like port.update()...still requires prototyping..
   }
 }
